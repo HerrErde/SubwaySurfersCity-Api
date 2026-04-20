@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+import "player.proto";
+
+package leaderboard.ext.v1;
+
+service PrivateService {
+  rpc GetScores (GetScoresRequest) returns (GetScoresResponse);
+  rpc SubmitScore (SubmitScoreRequest) returns (SubmitScoreResponse);
+}
+
+message GetScoresRequest {
+  LeaderboardInput leaderboard = 1;
+}
+
+message GetScoresResponse {
+  Leaderboard leaderboard = 1;
+  Score score = 2;
+  repeated Score scores = 3;
+}
+
+message ScoreInput {
+  string value = 1;
+  repeated MetadataEntry metadata = 2;
+}
+
+message SubmitScoreRequest {
+  LeaderboardInput leaderboard = 1;
+  ScoreInput score = 2;
+}
+
+message PartitionString {
+  string key = 1;
+  string value = 2;
+}
+
+message PartitionInteger {
+  string key = 1;
+  int32 value = 2;
+}
+
+message PartitionsInput {
+  repeated PartitionString partitionStrings = 1;
+  repeated PartitionInteger partitionIntegers = 2;
+}
+
+message LeaderboardInput {
+  string id = 1;
+  PartitionsInput partitions = 2;
+}
+
+message MetadataEntry {
+  string key = 1;
+  string value = 2;
+}
+
+message SubmitScoreResponse {
+  Leaderboard leaderboard = 1;
+  Score score = 2;
+  repeated Score scores = 3;
+}
+
+message Leaderboard {
+  string id = 1;
+  Partitions partitions = 2;
+  string resetsAt = 3;
+  string scoreCount = 4;
+}
+
+message PartitionRange {
+  string key = 1;
+  int32 min = 2;
+  int32 max = 3;
+}
+
+message Partitions {
+  repeated PartitionString partitionStrings = 1;
+  repeated PartitionRange partitionRanges = 2;
+}
+
+
+message Score {
+  string uid = 1;
+  string rank = 2;
+  string value = 3;
+  repeated MetadataEntry metadata = 4;
+  player.ext.v1.Player player = 5;
+}

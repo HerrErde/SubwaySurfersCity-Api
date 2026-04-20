@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package abtesting.ext.v2;
+
+service PrivateService {
+  rpc MatchExperiments (MatchExperimentsRequest) returns (MatchExperimentsResponse);
+}
+
+message MatchExperimentsRequest {
+  map<string, string> metrics = 1;
+}
+
+message MatchExperimentsResponse {
+  UserExperiment experiment = 1;
+}
+
+message UserExperiment {
+  enum VariantType {
+    Unspecified = 0;
+    Freeform = 1;
+    Gamedata = 2;
+    Default = 3;
+  }
+
+  string experimentId = 1;
+  string variantId = 2;
+  VariantType variantType = 3;
+  google.protobuf.Timestamp endAt = 4;
+}
+
