@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from google.protobuf.any_pb2 import Any
 from google.rpc import error_details_pb2, status_pb2
 
-api_url = "https://subway.prod.sybo.net"
+api_url = "https://subwaycity.prod.sybo.net"
 game = "subway"
 
 load_dotenv()
@@ -86,3 +86,10 @@ def framing(msg):
     body = b"\x00" + len(payload).to_bytes(4, "big") + payload
 
     return body
+
+def deframing(raw):
+
+    msg_len = int.from_bytes(raw[1:5], "big")
+    grpc_payload = raw[5 : 5 + msg_len]
+
+    return grpc_payload
