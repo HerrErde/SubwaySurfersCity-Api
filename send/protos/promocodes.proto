@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package promocodes.ext.v1;
+
+service PrivateService {
+  rpc RedeemCode (RedeemCodeRequest) returns (RedeemCodeResponse);
+}
+
+message RedeemCodeRequest {
+  string id = 1;
+  Platform platform = 2;
+  string version = 3;
+}
+
+message RedeemCodeResponse {
+  repeated Code code = 1;  
+  repeated Attachment attachments = 2;  
+}
+
+enum Platform {
+  Undefined = 0;
+  Google = 1;
+  Apple = 2;
+}
+
+message Code {
+  string id = 1;
+  int64 used = 2;
+  string campaignId = 3;
+}
+
+message Attachment {
+  string type = 1;
+  string id = 2;
+  int64 value = 3;
+}

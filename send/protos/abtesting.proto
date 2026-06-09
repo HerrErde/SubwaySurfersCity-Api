@@ -5,15 +5,8 @@ import "google/protobuf/timestamp.proto";
 package abtesting.ext.v2;
 
 service PrivateService {
+  rpc MatchExperiment (MatchExperimentRequest) returns (MatchExperimentResponse);
   rpc MatchExperiments (MatchExperimentsRequest) returns (MatchExperimentsResponse);
-}
-
-message MatchExperimentsRequest {
-  map<string, string> metrics = 1;
-}
-
-message MatchExperimentsResponse {
-  UserExperiment experiment = 1;
 }
 
 message UserExperiment {
@@ -30,3 +23,18 @@ message UserExperiment {
   google.protobuf.Timestamp endAt = 4;
 }
 
+message MatchExperimentRequest {
+  map<string, string> metrics = 1;
+}
+
+message MatchExperimentResponse {
+  UserExperiment experiment = 1;
+}
+
+message MatchExperimentsRequest {
+  map<string, string> metrics = 1;
+}
+
+message MatchExperimentsResponse {
+  repeated UserExperiment experiments = 1;
+}

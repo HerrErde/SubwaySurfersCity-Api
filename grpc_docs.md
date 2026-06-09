@@ -19,10 +19,15 @@
       - [Get Player by Tag](#get-player-by-tag)
       - [Get Player by Id](#get-player-by-id)
     - [Abtesting](#abtesting)
+      - [MatchExperiment](#matchexperiment)
       - [MatchExperiments](#matchexperiments)
     - [Leaderboard](#leaderboard)
       - [Get Score](#get-score)
       - [Submit Score](#submit-score)
+    - [FeatureFlags](#featureflags)
+      - [Get Flags](#get-flags)
+    - [Promocodes](#promocodes)
+      - [RedeemCode](#redeemcode)
 
 </details>
 
@@ -254,12 +259,12 @@ To get a player’s data, you first need their uid. This can be obtained either 
 
 ### Abtesting
 
-#### MatchExperiments
+#### MatchExperiment
 
-- POST `/rpc/abtesting.ext.v2.PrivateService/MatchExperiments`
+- POST `/rpc/abtesting.ext.v2.PrivateService/MatchExperiment`
 - Returns the accounts experiment
 - Sample request (2026-03-22): \
-  POST /rpc/abtesting.ext.v2.PrivateService/MatchExperiments \
+  POST /rpc/abtesting.ext.v2.PrivateService/MatchExperiment \
   Authorization: `Bearer <identityToken>`
   msg: MatchExperimentsRequest \
   resp: MatchExperimentsResponse
@@ -293,6 +298,41 @@ When you want to play with other experiments you can change them [here](./hacks.
 The app uses this information to determine which tower gamedata files to load.
 
 The weird thing is that when requesting the json format it will output the `variantType` and `endAt` values, which it dosnt when doing the normal grpc request.
+
+#### MatchExperiments
+
+- POST `/rpc/abtesting.ext.v2.PrivateService/MatchExperiments`
+- Returns the accounts experiment
+- Sample request (2026-05-05): \
+  POST /rpc/abtesting.ext.v2.PrivateService/MatchExperiments \
+  Authorization: `Bearer <identityToken>`
+  msg: MatchExperimentsRequest \
+  resp: MatchExperimentsResponse
+
+```protobuf
+experiment {
+  experimentId: "Tier1_AB_Interstitial_Frequency_2.1.0"
+  variantId: "ab_interstitials_higher_frequency_xp_4"
+}
+```
+
+<details>
+  <summary>When requesting it with application/json</summary>
+
+```json
+{
+  "experiments": [
+    {
+      "experimentId": "ab_reduced_max_tickets_2.1.0",
+      "variantId": "ab_ticketing_variant_b",
+      "variantType": "VARIANT_TYPE_GAMEDATA",
+      "endAt": "2126-04-01T08:04:15.544Z"
+    }
+  ]
+}
+```
+
+</details>
 
 ### Leaderboard
 
@@ -461,3 +501,309 @@ The weird thing is that when requesting the json format it will output the `vari
 </details>
 
 Response: [TopRun Leaderboard](#leaderboard_response)
+
+### FeatureFlags
+
+#### Get Flags
+
+- POST `/rpc/featureflags.ext.v1.PublicService/GetFlags`
+- Get the users flags
+- Sample request (2026-06-09): \
+  POST /rpc/featureflags.ext.v1.PublicService/GetFlags \
+  Authorization: `Bearer <identityToken>`
+  msg: GetFlagsRequest \
+  resp: GetFlagsResponse
+
+<details>
+  <summary>Response</summary>
+
+```protobuf
+flags {
+  items {
+  }
+  items {
+    id: 1
+  }
+  items {
+    id: 2
+  }
+  items {
+    id: 3
+    enabled: true
+  }
+  items {
+    id: 4
+    enabled: true
+  }
+  items {
+    id: 5
+    enabled: true
+  }
+  items {
+    id: 6
+    enabled: true
+  }
+  items {
+    id: 7
+    enabled: true
+  }
+  items {
+    id: 8
+    enabled: true
+  }
+  items {
+    id: 9
+    enabled: true
+  }
+  items {
+    id: 10
+    enabled: true
+  }
+  items {
+    id: 11
+    enabled: true
+  }
+  items {
+    id: 12
+    enabled: true
+  }
+  items {
+    id: 13
+    enabled: true
+  }
+  items {
+    id: 14
+    enabled: true
+  }
+  items {
+    id: 15
+    enabled: true
+  }
+  items {
+    id: 16
+    enabled: true
+  }
+  items {
+    id: 17
+    enabled: true
+  }
+  items {
+    id: 18
+    enabled: true
+  }
+  items {
+    id: 19
+  }
+  items {
+    id: 20
+    enabled: true
+  }
+  items {
+    id: 21
+  }
+  items {
+    id: 22
+    enabled: true
+  }
+  items {
+    id: 23
+    enabled: true
+  }
+  items {
+    id: 24
+    enabled: true
+  }
+  items {
+    id: 25
+  }
+  items {
+    id: 26
+    enabled: true
+  }
+  items {
+    id: 27
+    enabled: true
+  }
+  items {
+    id: 28
+    enabled: true
+  }
+  items {
+    id: 29
+    enabled: true
+  }
+  items {
+    id: 30
+    enabled: true
+  }
+  items {
+    id: 31
+    enabled: true
+  }
+  items {
+    id: 32
+    enabled: true
+  }
+  items {
+    id: 33
+    enabled: true
+  }
+  items {
+    id: 34
+    enabled: true
+  }
+  items {
+    id: 35
+  }
+  items {
+    id: 36
+    enabled: true
+  }
+  items {
+    id: 37
+    enabled: true
+  }
+  items {
+    id: 38
+  }
+  items {
+    id: 39
+    enabled: true
+  }
+  items {
+    id: 40
+    enabled: true
+  }
+  items {
+    id: 41
+    enabled: true
+  }
+  items {
+    id: 42
+    enabled: true
+  }
+  items {
+    id: 43
+    enabled: true
+  }
+  items {
+    id: 44
+    enabled: true
+  }
+  items {
+    id: 45
+    enabled: true
+  }
+  items {
+    id: 46
+    enabled: true
+  }
+  items {
+    id: 47
+    enabled: true
+  }
+  items {
+    id: 48
+    enabled: true
+  }
+  items {
+    id: 49
+    enabled: true
+  }
+}
+```
+
+</details>
+
+<details>
+  <summary>Feature Flags for version 2.3.0</summary>
+
+```cs
+namespace SYBO.Subway2
+{
+	public enum Feature // TypeDefIndex: 1413
+	{
+		None = 0,
+		Shop = 1,
+		Ads = 2,
+		DailyMissions = 3,
+		MainlineMissions = 4,
+		Cloudsave = 5,
+		Boards = 6,
+		Mailbox = 7,
+		Trials = 8,
+		DailyAdRewards = 9,
+		SeasonPass = 10,
+		ShopV2 = 11,
+		SocialAuth = 12,
+		SeasonMissions = 13,
+		Helpshift = 14,
+		ShaderPrewarming = 15,
+		RestorePurchases = 16,
+		DeferredPurchasesCache = 17,
+		BonusReward = 18,
+		MysteryBoxesV2 = 19,
+		Leaderboards = 20,
+		ContentBackgroundDownload = 21,
+		Breadcrumbs = 22,
+		InterstitialAds = 23,
+		SurferSkin = 24,
+		BootstrapException = 25,
+		AppLovinMaxMediation = 26,
+		ChainOffers = 27,
+		OnlinePlayerProfile = 28,
+		TrialCompleteBar = 29,
+		AdaptiveQuality = 30,
+		UIClickEvents = 31,
+		GlobalPower = 32,
+		CrewEncounters = 33,
+		Campaign = 34,
+		CrewInDailyTrials = 35,
+		Quests = 36,
+		DailyScoreGoals = 37,
+		InterstitialsLowEnd = 38,
+		InterstitialsTrials = 39,
+		RateUsPopup = 40,
+		LanguageSelector = 41,
+		Preregistration = 42,
+		Safepoint = 43,
+		Achievements = 44,
+		LocalNotifications = 45,
+		PiggyBank = 46,
+		Deeplink = 47,
+		PromoCode = 48,
+		AssetsCDNv2 = 49,
+		AppNativeCheck = 50,
+		GooglePlayPoints = 51
+	}
+
+```
+
+</details>
+
+A separate named feature toggle system in the Tower gamedata:
+
+```json
+{
+  "features": [
+    { "feature": "leaderboards", "state": "enabled" },
+    { "feature": "interstitialads", "state": "enabled" },
+    { "feature": "chainoffers", "state": "enabled" },
+    { "feature": "interstitialstrials", "state": "enabled" },
+    { "feature": "interstitialslowend", "state": "disabled" },
+    { "feature": "localnotifications", "state": "enabled" }
+  ]
+}
+```
+
+### Promocodes
+
+#### RedeemCode
+
+- POST `/rpc/promocodes.ext.v1.PrivateService/RedeemCode`
+- Redeam a promocode
+- Sample request: \
+  POST /rpc/promocodes.ext.v1.PrivateService/RedeemCode \
+  Authorization: `Bearer <identityToken>`
+  msg: RedeemCodeRequest \
+  resp: RedeemCodeResponse

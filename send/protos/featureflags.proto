@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package featureflags.ext.v1;
+
+service PublicService {
+  rpc GetFlags (GetFlagsRequest) returns (GetFlagsResponse);
+}
+
+message GetFlagsRequest {
+  Version clientVersion = 1;
+}
+
+message GetFlagsResponse {
+  Flags flags = 1;
+}
+
+message Version {
+  int32 major = 1;
+  int32 minor = 2;
+  int32 patch = 3;
+}
+
+message Flags {
+  repeated Flag items = 1;
+}
+
+message Flag {
+  uint32 id = 1;
+  bool enabled = 2;
+}

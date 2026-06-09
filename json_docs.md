@@ -17,6 +17,7 @@
       - [Manifest](#manifest)
       - [Gamedata](#gamedata)
       - [Assets](#assets)
+      - [Assets V2](#assets-v2)
     - [GDPR](#gdpr)
       - [GDPR delete](#gdpr-delete)
       - [GDPR status](#gdpr-status)
@@ -29,6 +30,7 @@
     - [Misc](#misc)
       - [Where](#where)
       - [When](#when)
+    - [Shop](#shop)
 
 </details>
 
@@ -321,7 +323,7 @@ https://gamedata.tower.sybo.net/v1.0/{game}/{gamedataSecret}/{filename}.json
 
 #### Assets
 
-Url is <https://assets.tower.sybo.net>
+Url <https://assets.tower.sybo.net>
 
 - GET `/`
 - Get game assets files
@@ -329,6 +331,15 @@ Url is <https://assets.tower.sybo.net>
   GET /
 
 When getting the root of the url it shows what seems to be a list of a bucket
+> As of checking 2026-06-09 it will return a 403 error
+>```xml
+><Error>
+><Code>AccessDenied</Code>
+><Message>Access denied.</Message>
+></Error>
+>```
+
+
 
 <details>
   <summary>Assets Response</summary>
@@ -398,6 +409,15 @@ sybo://subwaycity/4519c123-6cb5-482d-a907-6b92da4e16f9/1.0.0/sybo.subway2.art.su
 ```
 
 These entries reference the actual asset bundles used by the game.
+
+#### Assets V2
+
+Url <https://assets-v2.tower.sybo.net>
+
+- Get game assets files
+- Sample request (2026-06-09)
+
+It seems to be just a new assets endpoint with seemingly no signifficant changes to [Assets](#assets).
 
 ### GDPR
 
@@ -744,3 +764,22 @@ Request example:
   ```json
   { "time": "2026-02-26T09:36:07.028Z" }
   ```
+
+### Shop
+
+- POST `/v1.0/shop/purchase`
+- ?
+- Sample request (2026-06-09): \
+  POST /v1.0/shop/purchase \
+  Authorization: `Bearer <identityToken>` \
+  Body:
+
+  ```json
+  {"provider":"google","productId":"surfers.google.prereg.001","receipt":"{\"packageName\":\"com.sybogames.subway.surfers.game\",\"productId\":\"surfers.google.prereg.001\",\"purchaseTime\":1768492955216,\"purchaseState\":0,\"purchaseToken\":\"pfappicnhjnanekpchcbdmgg.AO-J1Ow3Lxe48TP5_Kd14RSuuaHdusSSYbgGaGk...\"}","type":"consumable"}
+  ```
+
+<h5>Response</h5>
+
+```json
+{"productId":"surfers.google.prereg.001","isTestPurchase":false}
+```
